@@ -4,6 +4,7 @@ import { store } from './store/store';
 import UserLoginPage from './Page/Login/AdminLoginPage';
 import HomePage from './Page/Home/HomePage';
 import PrivateRoute from './components/private/Index';
+import NotFound from './components/404Page/Index';
 function App() {
  
 
@@ -13,6 +14,8 @@ function App() {
      <Router>
 <Routes>
 <Route path="/admin-login" element={<UserLoginPage />} />
+<Route path="*" element={<NotFound />} />
+
 <Route element={<PrivateRoute />}>
 <Route path="/" element={<HomePage />} />
            
