@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useDashboardQuery, useUpdateUserScoreMutation } from "../../features/api/adminAuth/AdminAuth";
 
 const Home = () => {
+  // Constants
+  const usersPerPage = 10;
+
   // Pagination, search, and modal states
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -88,23 +91,23 @@ const Home = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
-              {
-                sortedUsers?.map((user, index) => (
-                  <tr key={user._id} className="border-b border-gray-200 hover:bg-gray-100">
-                    <td className="py-3 px-6 text-left">{user?.name}</td>
-                    <td className="py-3 px-6 text-left">{user.score}</td>
-                    <td className="py-3 px-6 text-center">{index + 1}</td>
-                    <td className="py-3 px-6 text-center">
-                      <button
-                        onClick={() => handleEditClick(user)}
-                        className="text-blue-500 hover:text-blue-700"
-                      >
-                        Edit
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              }
+              {sortedUsers?.map((user, index) => (
+                <tr key={user._id} className="border-b border-gray-200 hover:bg-gray-100">
+                  <td className="py-3 px-6 text-left">{user?.name}</td>
+                  <td className="py-3 px-6 text-left">{user.score}</td>
+                  <td className="py-3 px-6 text-center">
+                    {(page - 1) * usersPerPage + index + 1}
+                  </td>
+                  <td className="py-3 px-6 text-center">
+                    <button
+                      onClick={() => handleEditClick(user)}
+                      className="text-blue-500 hover:text-blue-700"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
 
